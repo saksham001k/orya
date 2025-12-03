@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ORYA Gallery - Soul Fragment Collection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #8a2be2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .fragment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .fragment-card {
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .fragment-card:hover {
+            transform: translateY(-5px);
+            border-color: #8a2be2;
+        }
+        
+        .fragment-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .fragment-info {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        
+        .fragment-hash {
+            font-family: monospace;
+            color: #00ff9d;
+            font-size: 0.8em;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+        
+        .empty-gallery {
+            text-align: center;
+            padding: 100px;
+            color: #666;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gallery-header">
+            <h1>🌀 ORYA Fragment Gallery</h1>
+            <p class="tagline">Collection of digital soul fragments</p>
+            <a href="/" class="back-link">← Back to Generator</a>
+        </div>
+        
+        {% if fragments %}
+        <div class="fragment-grid">
+            {% for frag in fragments|reverse %}
+            <div class="fragment-card">
+                {% if frag.type == 'static' %}
+                <img src="{{ url_for('get_fragment', filename=frag.filename) }}" alt="Fragment">
+                {% else %}
+                <img src="{{ url_for('get_fragment', filename=frag.filename[0]) }}" alt="Living Fragment">
+                {% endif %}
+                
+                <div class="fragment-info">
+                    <strong>Type:</strong> {{ frag.type|upper }}<br>
+                    <strong>Created:</strong> {{ frag.timestamp[:19] }}<br>
+                    
+                    <div class="fragment-hash" title="{{ frag.hash }}">
+                        {{ frag.hash[:20] }}...
+                    </div>
+                    
+                    {% if frag.type == 'living' %}
+                    <em>Animated fragment ({{ frag.filename|length }} frames)</em>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-gallery">
+            <h3>No fragments yet</h3>
+            <p>Generate your first fragment to see it here!</p>
+            <a href="/" class="gallery-link">Create First Fragment →</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

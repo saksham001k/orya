@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ORYA - Generate Your Digital Soul Fragment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌀 ORYA</h1>
+            <div class="tagline">Generate a fragment of your digital soul</div>
+        </header>
+        
+        <main>
+            <div class="button-group">
+                <button class="generate-btn static-btn" onclick="generateFragment()">
+                    <div class="btn-icon">✨</div>
+                    <div class="btn-text">GENERATE STATIC FRAGMENT</div>
+                </button>
+                
+                <button class="generate-btn living-btn" onclick="generateLivingFragment()">
+                    <div class="btn-icon">🌊</div>
+                    <div class="btn-text">GENERATE LIVING FRAGMENT</div>
+                </button>
+            </div>
+
+            <!-- ==== THIS IS THE MISSING SECTION ==== -->
+            <div class="advanced-features">
+                <h3>Advanced Features</h3>
+    
+                <div class="merge-section">
+                    <input type="text" id="hash1" placeholder="First Fragment Hash (12 chars)">
+                    <input type="text" id="hash2" placeholder="Second Fragment Hash (12 chars)">
+                    <button onclick="mergeFragments()">🧬 MERGE FRAGMENTS</button>
+                </div>
+    
+                <button onclick="viewPersonality()" class="personality-btn">
+                    🔍 VIEW FRAGMENT PERSONALITY
+                </button>
+            </div>
+            <!-- ==== END MISSING SECTION ==== -->
+            
+            <div id="fragmentDisplay" class="fragment-display">
+                <h2>Your Orya Fragment</h2>
+                <div id="imageContainer">
+                    <img id="fragmentImage" src="" alt="Your generated fragment">
+                </div>
+                <div class="hash-display">
+                    <div class="hash-label">DIGITAL FINGERPRINT:</div>
+                    <div class="hash" id="fragmentHash"></div>
+                </div>
+                <p class="fragment-note">This fragment is unique to this moment and your machine's entropy.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>What is an Orya Fragment?</h3>
+                <p>Each fragment is generated from your device's unique entropy: keystroke timing, CPU fluctuations, memory states, and precise moment of creation. No two fragments are alike.</p>
+                <a href="/gallery" class="gallery-link">View Fragment Gallery →</a>
+            </div>
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
